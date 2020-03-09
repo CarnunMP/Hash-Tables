@@ -70,8 +70,8 @@ class HashTable:
         '''
         # if there's nothing at the index
         i = self._hash_mod(key)
-        print(self)
-        print(key, value, i)
+        # print(self)
+        # print(key, value, i)
         if self.storage[i] == None:
             # insert a new LinkedPair pointing to NULL
             self.storage[i] = LinkedPair(key, value)
