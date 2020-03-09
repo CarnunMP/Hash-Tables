@@ -75,7 +75,31 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # get the list associated with the hashed key
+        i = self._hash_mod(key)
+        linked_list = self.storage[i]
+
+        # search the list for the key
+        list_element = linked_list
+        prev_element = None
+        while list_element != None:
+            # if it's found, delete it (remove pointer to it)
+            if list_element.key == key:
+                # If it's the 1st in the list, make the 2nd the new first
+                if prev_element == None:
+                    self.storage[i] = list_element.next
+                # else point the previous to its .next
+                else:
+                    prev_element.next = list_element.next
+
+                return
+
+            prev_element = list_element
+            list_element = list_element.next
+    
+        # if not, print warning
+        print("Invalid key.")
+
 
 
     def retrieve(self, key):
