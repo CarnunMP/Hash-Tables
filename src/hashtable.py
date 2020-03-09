@@ -16,6 +16,23 @@ class HashTable:
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
 
+    def __str__(self):
+        output = "[\n"
+
+        for linked_list in self.storage:
+            list_element = linked_list
+
+            while list_element != None:
+                output += f'<"{list_element.key}", "{list_element.value}"> -> '
+                list_element = list_element.next
+
+            output += 'NULL,\n'
+
+        output = output[:-2]
+        output += "\n]"
+
+        return output
+
 
     def _hash(self, key):
         '''
@@ -53,17 +70,28 @@ class HashTable:
         '''
         # if there's nothing at the index
         i = self._hash_mod(key)
+        print(self)
+        print(key, value, i)
         if self.storage[i] == None:
             # insert a new LinkedPair pointing to NULL
             self.storage[i] = LinkedPair(key, value)
         # else,
         else:
             # insert a new LinkedPair at the end of the linked list present
-            last_in_list = self.storage[i]
-            while last_in_list.next != None:
-                last_in_list = last_in_list.next
+            list_element = self.storage[i]
+            while list_element.next != None:
+                # unless you should be overwriting instead!
+                if list_element.key == key:
+                    list_element.value = value
+                    return
 
-            last_in_list.next = LinkedPair(key, value)
+                list_element = list_element.next
+
+            if list_element.key == key:
+                list_element.value = value
+                return
+
+            list_element.next = LinkedPair(key, value)
 
 
 
@@ -143,7 +171,7 @@ class HashTable:
             while list_element != None:
                 self.insert(list_element.key, list_element.value)
                 list_element = list_element.next
-        
+
 
 
 if __name__ == "__main__":
