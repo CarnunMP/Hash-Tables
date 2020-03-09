@@ -110,7 +110,20 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # get the list associated with the key
+        i = self._hash_mod(key)
+        linked_list = self.storage[i]
+
+        # search the list for the key
+        while linked_list != None:
+            # if it's found, return its value
+            if linked_list.key == key:
+                return linked_list.value
+
+            linked_list = linked_list.next
+        
+        # else, return None
+        return
 
 
     def resize(self):
