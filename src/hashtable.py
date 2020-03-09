@@ -25,7 +25,7 @@ class HashTable:
         '''
         return hash(key)
 
-
+    # TODO: STRETCH
     def _hash_djb2(self, key):
         '''
         Hash an arbitrary key using DJB2 hash
@@ -51,7 +51,19 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # if there's nothing at the index
+        i = self._hash_mod(key)
+        if self.storage[i] == None:
+            # insert a new LinkedPair pointing to NULL
+            self.storage[i] = LinkedPair(key, value)
+        # else,
+        else:
+            # insert a new LinkedPair at the end of the linked list present
+            last_in_list = self.storage[i]
+            while last_in_list.next != None:
+                last_in_list = last_in_list.next
+
+            last_in_list.next = LinkedPair(key, value)
 
 
 
