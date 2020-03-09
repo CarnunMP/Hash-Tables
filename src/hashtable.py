@@ -133,8 +133,17 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        self.capacity *= 2
+        old_storage = self.storage
+        self.storage = [None] * self.capacity
 
+        for i in range(len(old_storage)):
+            list_element = old_storage[i]
+
+            while list_element != None:
+                self.insert(list_element.key, list_element.value)
+                list_element = list_element.next
+        
 
 
 if __name__ == "__main__":
